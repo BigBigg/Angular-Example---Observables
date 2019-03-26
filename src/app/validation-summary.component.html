@@ -1,0 +1,15 @@
+<div class="error-block" *ngIf="hasError()">
+    <span class="warning-ico"><img src="../assets/images/exclamation.svg" /></span>
+    <p *ngIf="message && message.messageType && message.messageType === 1">
+        <span [innerHTML]="message.message"></span>
+        <a  *ngIf="message.redirectTitle" href="#" (click)="navigateToRoute()">{{message.redirectTitle}}</a>
+    </p>
+    <ng-container *ngFor="let key of getKeys(formObject.controls)">
+        <p [hidden]="!formObject.controls[key].dirty" *ngFor="let errorKey of getKeys(formObject.controls[key].errors)" [innerHTML]="getResource(key,errorKey)" >
+        </p>
+    </ng-container>
+</div>
+<div class="success-block" *ngIf="hasSuccessMessage()">
+    <span class="ico"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
+    <p>{{message.message}}</p>
+</div>
